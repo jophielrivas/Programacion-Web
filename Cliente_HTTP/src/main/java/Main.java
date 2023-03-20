@@ -44,15 +44,15 @@ public class Main {
                     System.out.println("La cantidad de imagenes dentro de parrafos es de: " + img.size());
                 }
 
-                //Busca los formularios tipo POST
+                //4)Busca los formularios tipo POST
                 Elements postForms = doc.select("form[method$=post]");
                 System.out.println("La cantidad de formularios con metodo POST es de: " + postForms.size());
 
-                //Busca los formularios tipo GET
+                //4)Busca los formularios tipo GET
                 Elements getForms = doc.select("form[method$=get]");
                 System.out.println("La cantidad de formularios con metodo GET es de: " + getForms.size() + "\n");
 
-                //4) Imprime los hijos de cada formulario
+                //5) Imprime los hijos de cada formulario
                 inputs(postForms);
                 inputs(getForms);
 
