@@ -36,9 +36,6 @@ public class CarroCompra {
         return listaProductos.stream().filter(e -> e.getId() == id).findFirst().orElse(null);
     }
 
-    public void cambiarProducto(Producto temp, int pos) {
-        listaProductos.set(pos, temp);
-    }
 
     public int getPos(Integer id) {
         int cont = 0;
@@ -73,6 +70,7 @@ public class CarroCompra {
         }
         return carritoTotal;
     };
+
 
     public void limpiarCarrito() {
         this.listaProductos = new ArrayList<Producto>();

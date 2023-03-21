@@ -4,9 +4,7 @@ import encapsulaciones.VentasProductos;
 import io.javalin.Javalin;
 
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Main {
 
@@ -185,7 +183,12 @@ public class Main {
 
             String nombreCliente = ctx.formParam("nombreCliente");
             Date date = new Date();
-            VentasProductos temp = new VentasProductos(date,nombreCliente,carrito.getListaProductos(), carrito.getCarritoTotal());
+            List<Producto> nuevaListaProductos = new ArrayList<>();
+            for(Producto producto :carrito.getListaProductos()){
+                Producto temp = new Producto(producto.getId(), producto.getNombre(), producto.getPrecio(),producto.getCantidad(), producto.getTotal());
+                nuevaListaProductos.add(temp);
+            }
+            VentasProductos temp = new VentasProductos(date,nombreCliente,nuevaListaProductos, carrito.getCarritoTotal());
             if(carrito.getCarritoTotal()>0) {
                 servicio.addVentas(temp);
                 carrito.limpiarCarrito();

@@ -14,9 +14,9 @@ public class Servicio {
     private long carrito;
 
     public Servicio() {
-        usuarios = new ArrayList<>();;
-        productos = new ArrayList<>();;
-        ventas = new ArrayList<>();;
+        usuarios = new ArrayList<>();
+        productos = new ArrayList<>();
+        ventas = new ArrayList<>();
         cont = 0;
         carrito = 0;
         usuarios.add(new Usuario("admin","admin","admin"));

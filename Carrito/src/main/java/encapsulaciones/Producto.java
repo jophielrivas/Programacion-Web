@@ -17,6 +17,14 @@ public class Producto {
         this.precio = precio;
     }
 
+    public Producto(int id, String nombre, float precio, int cantidad, float total){
+        this.id = id;
+        this.nombre = nombre;
+        this.precio = precio;
+        this.cantidad = cantidad;
+        this.total = total;
+    }
+
     public int getId() {
         return id;
     }
