@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{/layout.html}">
+<head>
+  <title>Empresa Lista de Productos</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link th:href="@{/style.css}" href="/style.css" rel="stylesheet" type="text/css" media="all"/>
+  <style>
+    body {
+      background-color: #E1E1E1ED;
+      font-family: Georgia, serif;
+      font-size: 16px;
+      line-height: 1.5;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* CSS for Navigation Bar */
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    .navbar-brand {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .navbar-nav .nav-link {
+      padding-right: 15px;
+      padding-left: 15px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .navbar-nav .nav-link:hover {
+      color: #f00;
+    }
+
+    /*CSS for the first container*/
+
+    .container2 {
+      width: 1110px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f7f7f7;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-shadow: 0px 5px 10px 2px rgba(119, 118, 118, 0.8);
+      margin-bottom: 20px;
+      border-collapse: collapse;
+    }
+    .container2 input {
+      width: 80%;
+    }
+
+    /*CSS for the buttons*/
+
+    .btn-container {
+      text-align: right;
+    }
+
+    .btn-dark-green {
+      background-color: #006400;
+      color: #fff;
+      padding: 12px 22px;
+      padding-bottom: 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .btn-dark-green:hover {
+      background-color: #228B22;
+    }
+
+    .btn-primary, .btn-primary:active, .btn-primary:visited{
+      background-color: orange !important;
+      border-color: #ff8c00 !important;
+      padding: 10px 20px !important;
+    }
+
+    .btn-primary:hover {
+      background-color: #ff8c00 !important;
+    }
+
+    .text-container{
+      text-align: right;
+      margin-bottom: 10px;
+    }
+    /*CSS for the Table*/
+
+    h2 {
+      padding-top: 40px;
+      text-align: center;
+    }
+
+
+    .table-responsive{
+      box-shadow: 0px 5px 10px 2px rgba(119, 118, 118, 0.8);
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 80%;
+      font-size: 16px;
+      padding: 10px;
+      border-radius: 8px;
+    }
+
+    th {
+      background-color: gray;
+      text-align: center;
+      padding: 12px;
+      color: #f2f2f2;
+    }
+
+    td {
+      text-align: center;
+      padding: 12px;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    th:first-child{
+      border-top-left-radius: 8px;
+    }
+    th:last-child{
+      border-top-right-radius: 8px;
+    }
+
+    @media only screen and (max-width: 1200px) {
+      .container2 {
+        max-width: 80%;
+        display: block;
+        padding: 10px;
+        margin-bottom: 20px;
+      }
+    }
+
+    @media only screen and (max-width: 600px) {
+
+      table, thead, tbody, th, td, tr {
+        table-layout: auto;
+        max-width: 80%;
+      }
+
+      th {
+        text-align: center;
+      }
+
+      td {
+        text-align: center;
+      }
+
+      th {
+        float: left;
+      }
+
+      td {
+        float: left;
+        clear: left;
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+      }
+
+      th:first-child, td:first-child {
+        margin-left: 0;
+      }
+
+      th:last-child, td:last-child {
+        margin-right: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+<!-- Navigation Bar -->
+<nav class="navbar navbar-expand-md bg-light navbar-light">
+  <!-- Logo/Brand -->
+  <a class="navbar-brand" href="#">Empresa</a>
+  <!-- Toggler Button for Mobile View -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <!-- Navigation Links -->
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/productos}">Comprar</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/ventas}">Ventas Realizadas</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/crud-productos}">Administrar Productos</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/carrito}" th:text = "'Carrito ('+${cantidadCarrito}+')'">Carrito (0)</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<h2>Listado de Productos</h2>
+<!-- Name Container -->
+<form th:action="@{/carrito}" method="POST">
+<div class="container2">
+  <h4>Datos del Cliente</h4>
+  <hr>
+  <label for="nombreCliente">Nombre del Cliente:</label>
+  <input type="text" id="nombreCliente" name="nombreCliente" required>
+</div>
+
+<!-- Table -->
+<div class="container">
+  <div class="table-responsive">
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Producto</th>
+          <th>Precio ($RD)</th>
+          <th>Cantidad</th>
+          <th>Total ($RD)</th>
+          <th>Accion</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each = "producto: ${productos}">
+            <input type="hidden" th:value="${producto.id}" name="id">
+            <td th:text = "${producto.nombre}" ></td>
+            <td th:text = "${producto.precio}"></td>
+            <td th:text = "${producto.cantidad}"></td>
+            <td th:text = "${producto.total}"></td>
+            <td><a th:href="'/eliminar-carrito/'+${producto.id}" class="btn btn-danger">Eliminar</a></td>
+        </tr>
+        </tbody>
+      </table>
+  </div>
+  <div class="text-container">
+    <h3 th:text = "'Total: '+${totalCarrito}+'$RD'">Total 0.00 $RD</h3>
+  </div>
+  <div class="btn-container">
+    <input type="submit" class="btn btn-primary" value="Procesar Compra">
+    <a th:href="@{/limpiar-carrito}" class="btn-dark-green">Limpiar Carro Compra</a>
+  </div>
+</div>
+</form>
+<!-- jQuery and Bootstrap JS -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

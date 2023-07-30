@@ -1,0 +1,166 @@
+h1 {
+    font-size: 32px;
+    text-align: center;
+    margin-top: 0;
+    color: rgb(0, 0, 0);
+}
+label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    color: orange;
+}
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+input[type="submit"],
+button[type="submit"] {
+    background-color: orange;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    float: left;
+}
+input[type="submit"]:hover,
+button[type="submit"]:hover {
+    background-color: #ff8c00;
+}
+button[type="submit"] {
+    float: right;
+}
+a {
+    color: orange;
+    text-decoration: none;
+    font-size: 18px;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+a:hover {
+    text-decoration: underline;
+}
+@media (max-width: 600px) {
+    .container {
+        max-width: 90%;
+    }
+    h1 {
+        font-size: 28px;
+    }
+    label, input[type="text"], input[type="password"] {
+        font-size: 16px;
+    }
+    input[type="submit"], button[type="submit"] {
+        font-size: 16px;
+    }
+    a {
+        font-size: 16px;
+    }
+}
+
+/* CSS for Navigation Bar */
+.navbar-brand {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.navbar-nav .nav-link {
+    padding-right: 15px;
+    padding-left: 15px;
+    font-weight: bold;
+    color: #333;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #f00;
+}
+
+/*CSS for the Table*/
+
+h2 {
+    padding-top: 40px;
+    text-align: center;
+}
+
+.btn-primary, .btn-primary:active, .btn-primary:visited{
+    background-color: orange !important;
+    border-color: #ff8c00 !important;
+}
+
+.btn-primary:hover {
+    background-color: #ff8c00 !important;
+}
+
+table {
+    border-collapse: collapse;
+    width: 80%;
+    font-size: 16px;
+    padding: 10px;
+}
+
+th {
+    background-color: gray;
+    text-align: center;
+    padding: 12px;
+    color: #f2f2f2;
+}
+
+td {
+    text-align: center;
+    padding: 12px;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+th:first-child{
+    border-top-left-radius: 8px;
+}
+th:last-child{
+    border-top-right-radius: 8px;
+}
+
+
+
+@media only screen and (max-width: 600px) {
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+
+    th {
+        text-align: center;
+    }
+
+    td {
+        text-align: center;
+    }
+
+    th {
+        float: left;
+    }
+
+    td {
+        float: left;
+        clear: left;
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    th:first-child, td:first-child {
+        margin-left: 0;
+    }
+
+    th:last-child, td:last-child {
+        margin-right: 0;
+    }
+}
