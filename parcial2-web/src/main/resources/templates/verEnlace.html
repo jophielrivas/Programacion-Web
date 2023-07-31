@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>WebMarket - Detalles del Enlace</title>
+    <script th:src="@{/templates/qrcode.min.js}"></script>
+    <script th:inline="javascript">
+        var qrcode = new QRCode(document.getElementById("qrcode"), {
+            text: "[[${enlace.URLAcostarda}]]",
+            width: 160,
+            height: 160,
+            colorDark: "#000000",
+            colorLight: "#ffffff",
+        });
+
+        window.onload = function() {
+            generateQR();
+            drawChart();
+        }
+    </script>
+</head>
+<body>
+<!-- Include the "publico/header.vm" template -->
+<div th:replace="templates/header.html"></div>
+
+<div class="row row-cols-1 row-cols-md-5 g-4 mb-3 mt-3 m-auto text-center" style="max-width: 97%">
+
+    <div class="col">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Original</h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text" th:text="${enlace.URL}"></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Acortado</h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text" th:text="${enlace.URLAcostarda}"></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Creación</h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text" th:text="${enlace.fecha}"></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Total de Visitas</h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text" th:text="${enlace.vecesAccesidas}"></p>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Codigo QR</h5>
+            </div>
+            <div class="card-body">
+                <a th:href="@{/re/{idEnlace}(idEnlace=${enlace.idEnlace})}">
+                    <div class="m-auto" id="qrcode" style="max-width: 80%; max-height: 80%"></div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="row row-cols-1 row-cols-md-2 mb-3 mt-3 m-auto text-center" style="max-width: 97%">
+    <div class="col-6">
+
+        <div class="card m-auto" style="max-width: 95%; padding-bottom: 10px">
+            <div class="card-header">
+                <h5 class="card-title text-center">
+                    Grafico de visitas
+                </h5>
+            </div>
+            <div class="card-body">
+                <span th:if="${map} != null">
+                    <div th:if="${map.entrySet().size() > 0}" class="m-auto" id="piechart" style="width: 90%; height: 500px;"></div>
+                    <h3 th:unless="${map.entrySet().size() > 0}" class="m-auto text-center">No hay datos disponibles</h3>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Preview</h5>
+            </div>
+            <div class="card-body">
+                <img th:src="|data:image/png;base64,${enlace.getFotoBase64()}|" class="img-fluid rounded-start">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card m-auto" style="max-width: 95%">
+    <div class="card-header">
+        <h5 class="card-title text-center">
+            Lista de Visitas Realizadas
+        </h5>
+    </div>
+    <div class="card-body">
+        <span th:if="${enlace.clientes} != null">
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">IP</th>
+                    <th scope="col">Navegador</th>
+                    <th scope="col">SO</th>
+                    <th scope="col">Fecha</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="visita : ${enlace.clientes}">
+                        <td th:text="${visita.ip}"></td>
+                        <td th:text="${visita.navegador}"></td>
+                        <td th:text="${visita.Sistema}"></td>
+                        <td th:text="${visita.fecha}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </span>
+        <span th:unless="${enlace.clientes} != null">
+            <h1>No hay registro de visitas</h1>
+        </span>
+
+    </div>
+</div>
+
+<script th:src="|https://www.gstatic.com/charts/loader.js|"></script>
+<script th:inline="javascript">
+    google.charts.load('current', {'packages': ['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+
+        ]);
+
+        var options = {
+            title: 'Visitas por fecha',
+            height: 400,
+        };
+
+        var chart = new google.visualization.ColumnChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
+    }
+</script>
+
+<!-- Include the "publico/footer.vm" template -->
+<div th:replace="templates/footer.html"></div>

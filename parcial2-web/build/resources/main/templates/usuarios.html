@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Lista de Usuarios</title>
+</head>
+<body>
+<!-- Include the "publico/header.vm" template -->
+<div th:replace="templates/header.html"></div>
+
+<div class="card m-auto mt-3" style="max-width: 80%">
+    <div class="card-header">
+        <h4 class="font-weight-normal text-center">Lista de Usuarios</h4>
+    </div>
+    <div class="card-body">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Usuario</th>
+                <th>Nombre</th>
+                <th>Rol</th>
+                <th>Modificar Credenciales</th>
+                <th>Eliminacion Usuarios</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="usuarioAct : ${usuarios}">
+                <td th:text="${usuarioAct.usuario}"></td>
+                <td th:text="${usuarioAct.nombre}"></td>
+                <td th:text="${usuarioAct.rol}"></td>
+
+                <th:block th:if="${usuarioAct.rol.name() != 'ROLE_ADMIN'}">
+                    <form th:action="@{/ascender/{idUsuario}(idUsuario=${usuarioAct.idUsuario})}" method="post">
+                        <td>
+                            <button class="btn btn-warning" type="submit">Ascender Rol</button>
+                        </td>
+                    </form>
+                </th:block>
+
+                <th:block th:if="${usuario.usuario} == 'admin' and  ${usuarioAct.usuario} != ${usuario.usuario}">
+                    <th:block th:if="${usuarioAct.rol.name()} == 'ROLE_ADMIN'">
+                        <form th:action="@{/descender/{idUsuario}(idUsuario=${usuarioAct.idUsuario})}" method="post">
+                            <td>
+                                <button class="btn btn-warning" type="submit">Descender Rol</button>
+                            </td>
+                        </form>
+                    </th:block>
+                    <form th:action="@{/eliminar/{idUsuario}(idUsuario=${usuarioAct.idUsuario})}" method="post">
+                        <td>
+                            <button class="btn btn-danger" type="submit">Eliminar usuario</button>
+                        </td>
+                    </form>
+                </th:block>
+
+                <th:block th:if="${usuarioAct.rol.name()} != 'ROLE_ADMIN'">
+                    <form th:action="@{/eliminar/{idUsuario}(idUsuario=${usuarioAct.idUsuario})}" method="post">
+                        <td>
+                            <button class="btn btn-danger" type="submit">Eliminar usuario</button>
+                        </td>
+                    </form>
+                </th:block>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div th:replace="templates/footer.html"></div>

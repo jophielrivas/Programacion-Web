@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Lista de Enlaces</title>
+</head>
+<body>
+
+<!-- Include the "publico/header.vm" template -->
+<div th:replace="templates/header.html"></div>
+
+<div class="card m-auto mt-3" style="max-width: 80%">
+    <div class="card-header">
+        <h4 class="font-weight-normal text-center">Lista de Enlaces</h4>
+    </div>
+    <div class="card-body">
+        <table class="table">
+            <thead>
+            <tr>
+                <th style="max-width: 50%">Original</th>
+                <th>Acortado</th>
+                <th>Total Visitas</th>
+                <th>Opciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Assuming $links is a list of objects -->
+            <tr th:each="link : ${links}">
+                <td style="max-width: 50%" th:text="${link.URL}"></td>
+                <td th:text="${link.URLAcostarda}"></td>
+                <td th:text="${link.vecesAccesidas}"></td>
+                <td>
+                    <a class="btn btn-primary" th:href="@{/ver/{idEnlace}(idEnlace=${link.idEnlace})}">Ver</a>
+
+                    <!-- Assuming $usuario is an object with 'rol' property -->
+                    <th:block th:if="${usuario.rol.name()} == 'ROLE_ADMIN'">
+                        <form th:action="@{/eliminar/enlace/{idEnlace}(idEnlace=${link.idEnlace})}" method="post">
+                            <button class="btn btn-warning" type="submit">Eliminar Enlace</button>
+                        </form>
+                    </th:block>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Include the "publico/footer.vm" template -->
+<div th:replace="templates/footer.html"></div>
